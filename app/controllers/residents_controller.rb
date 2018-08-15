@@ -3,11 +3,11 @@ class ResidentsController < ApplicationController
 
   def index
     @residents = Resident.all
-    render json: @residents, status: :ok
+    json_response(@residents)
   end
 
   def show
-    render json: @resident, status: :ok
+    json_response(@resident)
   end
 
   private
