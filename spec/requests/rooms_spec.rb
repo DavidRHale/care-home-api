@@ -110,4 +110,21 @@ RSpec.describe 'Rooms API' do
     end
   end
 
+  describe 'DELETE /rooms/:id' do
+    before { delete "/rooms/#{room_id}" }
+
+    context 'when the record exists' do
+      it 'returns status code 204' do
+        expect(response).to have_http_status(204)
+      end
+    end
+
+    context 'when the record does not exists' do
+      let(:room_id) { 100 }
+
+      it 'returns status code 404' do
+        expect(response).to have_http_status(404)
+      end
+    end
+  end
 end

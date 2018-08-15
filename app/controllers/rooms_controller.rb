@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: [:show, :update]
+  before_action :set_room, only: [:show, :update, :destroy]
 
   def index
     @room = Room.all
@@ -17,6 +17,11 @@ class RoomsController < ApplicationController
 
   def update
     @room.update(room_params)
+    head :no_content
+  end
+
+  def destroy
+    @room.destroy
     head :no_content
   end
 
