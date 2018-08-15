@@ -41,6 +41,38 @@ RSpec.describe 'Residents API', type: :request do
         expect(response.body).to match(/Couldn't find Resident/)
       end
     end
+
+    describe 'POST /residents' do
+      let(:valid_attributes) { { first_name: 'David', last_name: 'Hale', dob: '17-06-1903', favourite_food: 'Pizza' } }
+  
+      context 'when the request is valid' do
+        before { post '/residents', params: valid_attributes }
+  
+        it 'creates a resident' do
+          expect(json['first_name']).to eq('David')
+          expect(json['last_name']).to eq('Hale')
+          expect(json['dob']).to eq('1903-06-17')
+          expect(json['favourite_food']).to eq('Pizza')
+        end
+  
+        it 'returns status code 201' do
+          expect(response).to have_http_status(201)
+        end
+      end
+  
+      context 'when the request is invalid' do
+        before { post '/residents', params: { } }
+  
+        it 'returns status code 422' do
+          expect(response).to have_http_status(422)
+        end
+  
+        it 'returns a validation failure message' do
+          expect(response.body)
+            .to match(/Validation failed: First name can't be blank/)
+        end
+      end
+    end  
   end
 
 
