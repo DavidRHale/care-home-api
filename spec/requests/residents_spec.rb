@@ -90,6 +90,15 @@ RSpec.describe 'Residents API', type: :request do
       end
     end
 
+    context 'when the record does not exists' do
+      let(:resident_id) { 100 }
+      before { put "/residents/#{resident_id}", params: valid_attributes }
+
+      it 'returns status code 404' do
+        expect(response).to have_http_status(404)
+      end
+    end
+
     context 'when the request is invalid' do
       before { post '/residents', params: { first_name: '' } }
 
@@ -100,6 +109,25 @@ RSpec.describe 'Residents API', type: :request do
       it 'returns a validation failure message' do
         expect(response.body)
           .to match(/Validation failed: First name can't be blank/)
+      end
+    end
+  end
+
+
+  describe 'DELETE /residents/:id' do
+    before { delete "/residents/#{resident_id}" }
+
+    context 'when the record exists' do
+      it 'returns status code 204' do
+        expect(response).to have_http_status(204)
+      end
+    end
+
+    context 'when the record does not exists' do
+      let(:resident_id) { 100 }
+
+      it 'returns status code 404' do
+        expect(response).to have_http_status(404)
       end
     end
   end

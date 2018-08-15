@@ -1,5 +1,5 @@
 class ResidentsController < ApplicationController
-  before_action :set_resident, only: [:show, :update]
+  before_action :set_resident, only: [:show, :update, :destroy]
 
   def index
     @residents = Resident.all
@@ -18,7 +18,12 @@ class ResidentsController < ApplicationController
   def update
     @resident.update(resident_params)
     head :no_content
-  end 
+  end
+
+  def destroy
+    @resident.destroy
+    head :no_content
+  end
 
   private
 
