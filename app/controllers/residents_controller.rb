@@ -1,5 +1,5 @@
 class ResidentsController < ApplicationController
-  before_action :set_resident, only: [:show]
+  before_action :set_resident, only: [:show, :update]
 
   def index
     @residents = Resident.all
@@ -14,6 +14,11 @@ class ResidentsController < ApplicationController
     @resident = Resident.create!(resident_params)
     json_response(@resident, :created)
   end
+
+  def update
+    @resident.update(resident_params)
+    head :no_content
+  end 
 
   private
 
