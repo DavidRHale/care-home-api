@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: [:show]
+  before_action :set_room, only: [:show, :update]
 
   def index
     @room = Room.all
@@ -13,6 +13,11 @@ class RoomsController < ApplicationController
   def create
     @room = Room.create!(room_params)
     json_response(@room, :created)
+  end
+
+  def update
+    @room.update(room_params)
+    head :no_content
   end
 
   private

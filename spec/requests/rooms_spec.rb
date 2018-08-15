@@ -81,4 +81,33 @@ RSpec.describe 'Rooms API' do
     end
   end
 
+  describe 'PUT /rooms/:room_id' do
+    let(:valid_attributes) { { name: 'Dave' } }
+
+    before { put "/rooms/#{room_id}", params: valid_attributes }
+
+    context 'when room exists' do
+      it 'returns status code 204' do
+        expect(response).to have_http_status(204)
+      end
+
+      it 'updates the item' do
+        updated_room = Room.find(room_id)
+        expect(updated_room.name).to match(/Dave/)
+      end
+    end
+
+    context 'when the room does not exist' do
+      let(:room_id) { 100 }
+
+      it 'returns status code 404' do
+        expect(response).to have_http_status(404)
+      end
+
+      it 'returns a not found message' do
+        expect(response.body).to match(/Couldn't find Room/)
+      end
+    end
+  end
+
 end
