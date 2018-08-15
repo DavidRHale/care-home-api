@@ -51,4 +51,34 @@ RSpec.describe 'Rooms API' do
     end
   end
 
+  describe 'POST /rooms' do
+    let(:valid_attributes) { { name: 'David', resident_id: resident1.id } }
+
+    context 'when the request is valid' do
+      before { post '/rooms', params: valid_attributes }
+
+      it 'creates a room' do
+        expect(json['name']).to eq('David')
+        expect(json['resident_id']).to eq(resident1.id)
+      end
+
+      it 'returns status code 201' do
+        expect(response).to have_http_status(201)
+      end
+    end
+
+    context 'when the request is invalid' do
+      before { post '/rooms', params: { } }
+
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
+      end
+
+      it 'returns a validation failure message' do
+        expect(response.body)
+          .to match(/Validation failed: Resident must exist, Name can't be blank/)
+      end
+    end
+  end
+
 end
