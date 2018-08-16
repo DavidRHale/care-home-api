@@ -1,14 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe 'Residents API', type: :request do
-  let!(:residents) { create_list(:resident, 10) }
-  let(:resident_id) { residents.first.id }
+  
+  let!(:resident1) { create(:resident) }
+  let!(:resident2) { create(:resident) }
+  let!(:resident3) { create(:resident) }
+
+  let!(:room1) { create(:room, resident_id: resident1.id) }
+  let!(:room2) { create(:room, resident_id: resident2.id) }
+  let!(:room3) { create(:room, resident_id: resident3.id) }
+
+  let(:resident_id) { resident1.id }
 
   describe 'GET /residents' do
     before { get '/residents' }
 
     it 'returns all residents' do
-      expect(json.size).to eq(10)
+      expect(json.size).to eq(3)
     end
 
     it 'returns status code 200' do
