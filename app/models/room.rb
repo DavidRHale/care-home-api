@@ -1,5 +1,5 @@
 class Room < ApplicationRecord
-  belongs_to :resident
+  belongs_to :resident, optional: true
   validates_presence_of(:name)
 
   def as_json(*)
