@@ -76,7 +76,7 @@ RSpec.describe 'Rooms API' do
 
       it 'returns a validation failure message' do
         expect(response.body)
-          .to match(/Validation failed: Resident must exist, Name can't be blank/)
+          .to match(/Validation failed: Name can't be blank/)
       end
     end
   end
