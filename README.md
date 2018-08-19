@@ -1,24 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To run the application, do the following:
+1) Clone the repository
+2) From the root of the project open a terminal
+3) Run the following commands:
+  * bundle install
+  * rails db:setup
+  * rails s
+  
+The unit tests can be run with the command 'rspec'.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The api has a React front end which can be found at https://github.com/DavidRHale/care-home-client .
